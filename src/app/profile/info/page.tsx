@@ -33,7 +33,11 @@ const InfomationPage = () => {
     mutationFn: (data: FormValues) => updateProfile(activeAccount!.address, data),
     onSuccess: () => {
       refetch();
-      toast.success("Update social links successfully");
+      toast.success("Update profile info successfully");
+    },
+    onError: (err) => {
+      console.log("Error", err);
+      toast.error(err.message);
     },
   });
 

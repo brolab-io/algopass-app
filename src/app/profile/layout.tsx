@@ -17,9 +17,13 @@ const ProfileLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
     <ProfileProviders>
       <Navbar />
-      <div className="grid grid-cols-[345px_1fr] bg-[#F9F9F9] h-full pt-[102px]">
-        <Sidebar />
-        <div className="px-[50px] py-[30px] h-full overflow-scroll">{children}</div>
+      <div className="grid lg:grid-cols-[345px_1fr] bg-[#F9F9F9] h-full pt-[102px]">
+        <div className="hidden lg:flex">
+          <Sidebar />
+        </div>
+        <div className="px-7 md:px-10 lg:px-[50px] py-[30px] h-full overflow-scroll">
+          {children}
+        </div>
       </div>
     </ProfileProviders>
   );
