@@ -8,10 +8,12 @@ type InputProps = React.DetailedHTMLProps<
 > & {
   label: string;
   prefix?: string;
+  error?: string;
+  Action?: React.ReactNode;
 };
 
 const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
-  { label, prefix, ...props },
+  { label, prefix, error, Action, ...props },
   ref
 ) => {
   const spanRef = useRef<HTMLSpanElement>(null);
@@ -33,9 +35,15 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
 
   return (
     <div className="space-y-1 w-full">
-      <label htmlFor={props.name} className="block font-bold text-[#27272A]">
-        {label}
-      </label>
+      <div className="flex gap-x-4 items-center justify-between">
+        <div className="flex gap-x-4 items-center">
+          <label htmlFor={props.name} className="block font-bold text-[#27272A]">
+            {label}
+          </label>
+          {error && <span className="text-[#F44336] font-medium text-sm">{error}</span>}
+        </div>
+        {Action}
+      </div>
       {prefix ? (
         <div className="relative">
           <input
