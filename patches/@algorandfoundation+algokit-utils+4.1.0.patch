@@ -1,0 +1,18 @@
+diff --git a/node_modules/@algorandfoundation/algokit-utils/package.json b/node_modules/@algorandfoundation/algokit-utils/package.json
+index f3e9085..7495cba 100644
+--- a/node_modules/@algorandfoundation/algokit-utils/package.json
++++ b/node_modules/@algorandfoundation/algokit-utils/package.json
+@@ -38,11 +38,11 @@
+   ],
+   "exports": {
+     ".": {
+-      "import": "./esm/index.js",
++      "import": "./cjs/index.js",
+       "require": "./cjs/index.js"
+     },
+     "./types/*": {
+-      "import": "./esm/types/*.js",
++      "import": "./cjs/types/*.js",
+       "require": "./cjs/types/*.js"
+     },
+     "./testing": {

@@ -6,7 +6,7 @@ type ButtonProps = React.DetailedHTMLProps<
   HTMLButtonElement
 > & {
   variant?: "primary" | "secondary" | "danger";
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
   isLoading?: boolean;
 };
 

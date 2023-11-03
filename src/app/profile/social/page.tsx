@@ -2,7 +2,12 @@
 
 import { open_sans } from "@/app/fonts";
 import Input from "@/components/UI/Input";
-import { extractSocialUrl, getSocialIconName, getSupportedSocials } from "@/utils/social.util";
+import {
+  buildSocialUrl,
+  extractSocialUrl,
+  getSocialIconName,
+  getSupportedSocials,
+} from "@/utils/social.util";
 import clsx from "clsx";
 import Image from "next/image";
 import { XMarkIcon, PlusIcon, ShieldCheckIcon } from "@heroicons/react/20/solid";
@@ -12,9 +17,9 @@ import { useProfileContext } from "../providers";
 import { useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import useUpdateProfile from "@/hooks/useUpdateProfile";
 
 type Social = {
-  id?: number;
   url: string;
 };
 
@@ -34,15 +39,7 @@ const SocialPage = () => {
   });
 
   const { user, refetch } = useProfileContext();
-  const { mutate, isPending } = useMutation({
-    mutationFn: async (data: FormValues) => {
-      return console.log(data);
-    },
-    onSuccess: () => {
-      refetch();
-      toast.success("Update social links successfully");
-    },
-  });
+  const { mutate, isPending } = useUpdateProfile();
 
   const { fields, append, remove } = useFieldArray({
     name: "socials",
@@ -50,27 +47,31 @@ const SocialPage = () => {
   });
 
   useEffect(() => {
-    if (user && user.social_links?.length) {
+    if (user && user.urls?.length) {
       setValue("socials", []);
-      console.log(user.social_links);
-      for (const social of user.social_links) {
-        append({
-          id: social.id,
-          url: social.url,
-        });
+      for (const social of user.urls) {
+        const originalUrl = buildSocialUrl(...social);
+        if (originalUrl) {
+          append({
+            url: originalUrl,
+          });
+        }
       }
     }
   }, [append, remove, setValue, user]);
 
   const onSubmit = (data: FormValues) => {
-    const socials = data.socials.map((social) => ({
-      id: social.id,
-      url: social.url,
-      ...extractSocialUrl(social.url),
-    }));
-    console.log(socials);
+    if (!user) return;
+    const urls: [string, string][] = [];
+    for (const social of data.socials) {
+      const urlData = extractSocialUrl(social.url);
+      if (urlData?.name) {
+        urls.push([urlData.shortname, urlData.username]);
+      }
+    }
     mutate({
-      socials,
+      ...user,
+      urls,
     });
   };
 
