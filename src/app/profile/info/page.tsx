@@ -14,6 +14,7 @@ import { useWallet } from "@txnlab/use-wallet";
 import Image from "next/image";
 import { toast } from "react-toastify";
 import useUpdateProfile from "@/hooks/useUpdateProfile";
+import PageTitle from "@/components/UI/PageTitle";
 
 type FormValues = {
   username: string;
@@ -58,14 +59,7 @@ const InfomationPage = () => {
 
   return (
     <div>
-      <div className="flex justify-between items-center">
-        <div>
-          <h1 className="text-[34px] font-bold space-y-4">Infomation</h1>
-          <span className={clsx("text-lg text-[#A5A5A5]", open_sans.className)}>
-            Update your personal information
-          </span>
-        </div>
-      </div>
+      <PageTitle title="Infomation" subtitle="Update your personal information" />
       <div className="grid lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mt-4 lg:mt-8">
         <div className="space-y-1">
           <span className="block font-bold text-[#27272A]">Avatar</span>

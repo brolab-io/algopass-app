@@ -34,10 +34,13 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
   }, [prefix]);
 
   return (
-    <div className="space-y-1 w-full">
+    <div className="lg:space-y-1 w-full">
       <div className="flex gap-x-4 items-center justify-between">
         <div className="flex gap-x-4 items-center">
-          <label htmlFor={props.name} className="block font-bold text-[#27272A]">
+          <label
+            htmlFor={props.name}
+            className="block font-bold text-[#27272A] text-sm lg:text-base"
+          >
             {label}
           </label>
           {error && <span className="text-[#F44336] font-medium text-sm">{error}</span>}
@@ -51,7 +54,7 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
             ref={ref}
             style={inputStyle}
             className={clsx(
-              "border-[#DDDDE3] border font-medium bg-white rounded px-4 py-3 w-full",
+              "border-[#DDDDE3] border font-medium bg-white rounded px-4 py-3 w-full text-sm lg:text-base",
               !spanWidth && "placeholder:opacity-0"
             )}
           />
@@ -66,7 +69,7 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
         <input
           {...props}
           ref={ref}
-          className="border-[#DDDDE3] border bg-white rounded px-4 py-3 w-full disabled:bg-[#F9F9F9] disabled:cursor-not-allowed"
+          className="border-[#DDDDE3] border bg-white rounded px-4 py-3 w-full disabled:bg-[#F9F9F9] disabled:cursor-not-allowed text-sm lg:text-base"
         />
       )}
     </div>

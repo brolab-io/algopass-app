@@ -13,6 +13,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { open_sans } from "@/app/fonts";
+import { PropsWithChildren } from "react";
 
 const menuItems = [
   {
@@ -48,11 +49,15 @@ const menuItems = [
   },
 ] as const;
 
-const Sidebar = () => {
+type Props = {
+  hideSidebar?: () => void;
+};
+
+const Sidebar: React.FC<Props> = ({ hideSidebar }) => {
   const pathname = usePathname();
 
   return (
-    <div className="bg-white flex flex-col">
+    <div className="bg-white flex h-full flex-col">
       <div className="flex h-full flex-col flex-1">
         <div className={clsx("text-[#C7C7C7] font-bold px-[50px]", open_sans.className)}>
           MAIN MENU
@@ -64,6 +69,7 @@ const Sidebar = () => {
               <Link
                 key={item.href}
                 href={item.href}
+                onClick={hideSidebar}
                 className={clsx(
                   "flex items-center py-[11px] px-[50px] hover:bg-[#F9F9F9] gap-x-[26px] relative",
                   isActive ? "text-primary font-bold" : "text-[#A5A5A5] font-medium"

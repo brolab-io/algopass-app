@@ -1,17 +1,7 @@
-"use client";
-
-import Container from "@/components/UI/Container";
-import Connect from "@/components/wallet/Connect";
-import { useWallet } from "@txnlab/use-wallet";
+import { redirect } from "next/navigation";
 
 const ProfilePage = () => {
-  const { activeAccount } = useWallet();
-
-  if (!activeAccount) {
-    return <Connect />;
-  }
-
-  return <Container></Container>;
+  redirect("/profile/info");
 };
 
 export default ProfilePage;
