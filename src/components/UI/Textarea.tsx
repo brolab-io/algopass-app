@@ -18,6 +18,7 @@ const Textarea: ForwardRefRenderFunction<HTMLTextAreaElement, InputProps> = (
       <label htmlFor={props.name} className="block font-bold text-[#27272A] text-sm lg:text-base">
         {label}
       </label>
+<<<<<<< HEAD
       <div className="relative">
         <textarea
           {...props}
@@ -30,6 +31,13 @@ const Textarea: ForwardRefRenderFunction<HTMLTextAreaElement, InputProps> = (
           </div>
         )}
       </div>
+=======
+      <textarea
+        {...props}
+        ref={ref}
+        className="border-[#DDDDE3] border bg-white rounded px-4 py-3 w-full disabled:bg-[#F9F9F9] disabled:cursor-not-allowed"
+      />
+>>>>>>> a6e4473 (call contract)
     </div>
   );
 };

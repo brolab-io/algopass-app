@@ -68,6 +68,7 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
           </span>
         </div>
       ) : (
+<<<<<<< HEAD
         <div className="relative">
           <input
             {...props}
@@ -80,6 +81,13 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
             </div>
           )}
         </div>
+=======
+        <input
+          {...props}
+          ref={ref}
+          className="border-[#DDDDE3] border bg-white rounded px-4 py-3 w-full disabled:bg-[#F9F9F9] disabled:cursor-not-allowed"
+        />
+>>>>>>> a6e4473 (call contract)
       )}
     </div>
   );

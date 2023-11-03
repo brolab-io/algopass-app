@@ -14,7 +14,10 @@ import { useWallet } from "@txnlab/use-wallet";
 import Image from "next/image";
 import { toast } from "react-toastify";
 import useUpdateProfile from "@/hooks/useUpdateProfile";
+<<<<<<< HEAD
 import PageTitle from "@/components/UI/PageTitle";
+=======
+>>>>>>> a6e4473 (call contract)
 
 type FormValues = {
   username: string;
@@ -65,8 +68,13 @@ const InfomationPage = () => {
           <span className="block font-bold text-[#27272A]">Avatar</span>
           <div
             className={clsx(
+<<<<<<< HEAD
               "w-full aspect-square bg-white relative rounded-lg overflow-hidden"
               // !user?.uri && "border border-dashed"
+=======
+              "w-full aspect-square bg-white relative rounded-lg overflow-hidden",
+              !user?.uri && "border border-dashed"
+>>>>>>> a6e4473 (call contract)
             )}
           >
             {/* {user?.uri ? (

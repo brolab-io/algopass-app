@@ -1,6 +1,10 @@
 "use client";
 import { createContext, useContext, useMemo } from "react";
+<<<<<<< HEAD
 import algosdk, { Algodv2 } from "algosdk";
+=======
+import { Algodv2 } from "algosdk";
+>>>>>>> a6e4473 (call contract)
 import { AppDetails } from "@algorandfoundation/algokit-utils/types/app-client";
 import { TransactionSignerAccount } from "@algorandfoundation/algokit-utils/types/account";
 import { getAlgoIndexerClient } from "@algorandfoundation/algokit-utils";
@@ -23,9 +27,13 @@ export const useAlgoPassContext = () => {
 const AlgoProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { signer, activeAddress } = useWallet();
   const appID = Number(process.env.NEXT_PUBLIC_ALGOD_APP_ID);
+<<<<<<< HEAD
   const appAddress = useMemo(() => {
     return algosdk.getApplicationAddress(appID);
   }, [appID]);
+=======
+  const appAddress = process.env.NEXT_PUBLIC_ALGOD_APP_ADDRESS!;
+>>>>>>> a6e4473 (call contract)
 
   const client = useMemo(() => {
     const algodToken = process.env.NEXT_PUBLIC_ALGOD_TOKEN;

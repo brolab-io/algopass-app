@@ -9,6 +9,7 @@
           "name": "payment"
         },
         {
+<<<<<<< HEAD
           "type": "string",
           "name": "name"
         },
@@ -17,6 +18,8 @@
           "name": "bio"
         },
         {
+=======
+>>>>>>> a6e4473 (call contract)
           "type": "(string,string)[]",
           "name": "urls"
         }
@@ -30,15 +33,33 @@
       "args": [
         {
           "type": "string",
+<<<<<<< HEAD
           "name": "bio"
         },
         {
+=======
+          "name": "name"
+        },
+        {
+          "type": "string",
+          "name": "bio"
+        },
+        {
+          "type": "string",
+          "name": "uri"
+        },
+        {
+>>>>>>> a6e4473 (call contract)
           "type": "(string,string)[]",
           "name": "urls"
         }
       ],
       "returns": {
+<<<<<<< HEAD
         "type": "(string,string,(string,string)[])"
+=======
+        "type": "(string,string,string,(string,string)[])"
+>>>>>>> a6e4473 (call contract)
       }
     },
     {
@@ -50,7 +71,11 @@
         }
       ],
       "returns": {
+<<<<<<< HEAD
         "type": "(string,string,(string,string)[])"
+=======
+        "type": "(string,string,string,(string,string)[])"
+>>>>>>> a6e4473 (call contract)
       }
     },
     {

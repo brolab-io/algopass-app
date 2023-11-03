@@ -4,13 +4,21 @@ import Sidebar from "@/components/UI/Sidebar";
 import Connect from "@/components/wallet/Connect";
 import { useWallet } from "@txnlab/use-wallet";
 import ProfileProviders, { useProfileContext } from "./providers";
+<<<<<<< HEAD
 import { useLayoutEffect, useState } from "react";
 import clsx from "clsx";
 import InitProfile from "@/components/profile/InitProfile";
+=======
+import useProfile from "@/hooks/useProfile";
+import Button from "@/components/UI/Button";
+import { useEffect } from "react";
+import useInitProfile from "@/hooks/useInitProfile";
+>>>>>>> a6e4473 (call contract)
 
 const ProfileLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { activeAccount, isReady } = useWallet();
   const { user, isLoading, error } = useProfileContext();
+<<<<<<< HEAD
   const [isSidebarShow, setIsSidebarShow] = useState(false);
   const [width, setWidth] = useState(0);
 
@@ -36,6 +44,9 @@ const ProfileLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
     setIsSidebarShow(false);
   };
 
+=======
+  const { mutate, isPending: isInitingProfile } = useInitProfile();
+>>>>>>> a6e4473 (call contract)
   if (error) {
     return (
       <div className="h-full flex items-center justify-center">
@@ -63,11 +74,18 @@ const ProfileLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
   if (!user) {
     return (
       <div className="h-full flex items-center justify-center">
+<<<<<<< HEAD
         <InitProfile />
+=======
+        <Button variant="primary" onClick={() => mutate()} isLoading={isInitingProfile}>
+          Create Profile
+        </Button>
+>>>>>>> a6e4473 (call contract)
       </div>
     );
   }
 
+<<<<<<< HEAD
   const isMobile = width < 1024;
 
   return (
@@ -103,6 +121,20 @@ const ProfileLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
         </div>
       </div>
     </div>
+=======
+  return (
+    <>
+      <Navbar />
+      <div className="grid lg:grid-cols-[345px_1fr] bg-[#F9F9F9] h-full pt-[102px]">
+        <div className="hidden lg:flex">
+          <Sidebar />
+        </div>
+        <div className="px-7 md:px-10 lg:px-[50px] py-[30px] h-full overflow-scroll">
+          {children}
+        </div>
+      </div>
+    </>
+>>>>>>> a6e4473 (call contract)
   );
 };
 
