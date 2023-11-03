@@ -5,19 +5,26 @@ import Connect from "@/components/wallet/Connect";
 import { useWallet } from "@txnlab/use-wallet";
 import ProfileProviders, { useProfileContext } from "./providers";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useLayoutEffect, useState } from "react";
 import clsx from "clsx";
 import InitProfile from "@/components/profile/InitProfile";
 =======
+=======
+>>>>>>> efdf7f0 (call contract)
 import useProfile from "@/hooks/useProfile";
 import Button from "@/components/UI/Button";
 import { useEffect } from "react";
 import useInitProfile from "@/hooks/useInitProfile";
+<<<<<<< HEAD
 >>>>>>> a6e4473 (call contract)
+=======
+>>>>>>> efdf7f0 (call contract)
 
 const ProfileLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { activeAccount, isReady } = useWallet();
   const { user, isLoading, error } = useProfileContext();
+<<<<<<< HEAD
 <<<<<<< HEAD
   const [isSidebarShow, setIsSidebarShow] = useState(false);
   const [width, setWidth] = useState(0);
@@ -47,6 +54,9 @@ const ProfileLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
 =======
   const { mutate, isPending: isInitingProfile } = useInitProfile();
 >>>>>>> a6e4473 (call contract)
+=======
+  const { mutate, isPending: isInitingProfile } = useInitProfile();
+>>>>>>> efdf7f0 (call contract)
   if (error) {
     return (
       <div className="h-full flex items-center justify-center">
@@ -75,16 +85,23 @@ const ProfileLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
     return (
       <div className="h-full flex items-center justify-center">
 <<<<<<< HEAD
+<<<<<<< HEAD
         <InitProfile />
 =======
         <Button variant="primary" onClick={() => mutate()} isLoading={isInitingProfile}>
           Create Profile
         </Button>
 >>>>>>> a6e4473 (call contract)
+=======
+        <Button variant="primary" onClick={() => mutate()} isLoading={isInitingProfile}>
+          Create Profile
+        </Button>
+>>>>>>> efdf7f0 (call contract)
       </div>
     );
   }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   const isMobile = width < 1024;
 
@@ -123,6 +140,9 @@ const ProfileLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
     </div>
 =======
   return (
+=======
+  return (
+>>>>>>> efdf7f0 (call contract)
     <>
       <Navbar />
       <div className="grid lg:grid-cols-[345px_1fr] bg-[#F9F9F9] h-full pt-[102px]">
@@ -134,7 +154,10 @@ const ProfileLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
         </div>
       </div>
     </>
+<<<<<<< HEAD
 >>>>>>> a6e4473 (call contract)
+=======
+>>>>>>> efdf7f0 (call contract)
   );
 };
 

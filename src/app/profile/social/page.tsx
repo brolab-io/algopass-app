@@ -19,9 +19,12 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import useUpdateProfile from "@/hooks/useUpdateProfile";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import PageTitle from "@/components/UI/PageTitle";
 =======
 >>>>>>> a6e4473 (call contract)
+=======
+>>>>>>> efdf7f0 (call contract)
 
 type Social = {
   url: string;

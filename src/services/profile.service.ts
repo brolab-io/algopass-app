@@ -4,9 +4,12 @@ import { TSocialLink, supabaseServer } from "@/utils/supabase";
 import { Algodv2, decodeAddress } from "algosdk";
 import { decodeProfile } from "@/utils/decode.util";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { isProfileNotFound } from "@/utils/contract.util";
 =======
 >>>>>>> a6e4473 (call contract)
+=======
+>>>>>>> efdf7f0 (call contract)
 
 const appID = Number(process.env.NEXT_PUBLIC_ALGOD_APP_ID)!;
 
@@ -30,13 +33,19 @@ export const getAlgoProfile = async (wallet: string) => {
     return decodeProfile(box.value);
   } catch (error) {
 <<<<<<< HEAD
+<<<<<<< HEAD
     if (isProfileNotFound(error)) return null;
 =======
+=======
+>>>>>>> efdf7f0 (call contract)
     const _error = error as any;
     if ("status" in _error && _error.status === 404) {
       return null;
     }
+<<<<<<< HEAD
 >>>>>>> a6e4473 (call contract)
+=======
+>>>>>>> efdf7f0 (call contract)
     throw error;
   }
 };
