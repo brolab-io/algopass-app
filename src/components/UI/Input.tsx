@@ -66,7 +66,7 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
         <input
           {...props}
           ref={ref}
-          className="border-[#DDDDE3] border bg-white rounded px-4 py-3 w-full"
+          className="border-[#DDDDE3] border bg-white rounded px-4 py-3 w-full disabled:bg-[#F9F9F9] disabled:cursor-not-allowed"
         />
       )}
     </div>

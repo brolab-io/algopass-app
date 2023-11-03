@@ -1,5 +1,5 @@
 "use client";
-import { formatAddress } from "@/utils/string";
+import { formatAddress } from "@/utils/string.util";
 import { Bars3Icon, ChevronDownIcon } from "@heroicons/react/20/solid";
 import { useWallet } from "@txnlab/use-wallet";
 import Image from "next/image";
