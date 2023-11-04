@@ -4,16 +4,13 @@ import Sidebar from "@/components/UI/Sidebar";
 import Connect from "@/components/wallet/Connect";
 import { useWallet } from "@txnlab/use-wallet";
 import ProfileProviders, { useProfileContext } from "./providers";
-import useProfile from "@/hooks/useProfile";
-import Button from "@/components/UI/Button";
-import { useEffect, useLayoutEffect, useState } from "react";
-import useInitProfile from "@/hooks/useInitProfile";
+import { useLayoutEffect, useState } from "react";
 import clsx from "clsx";
+import InitProfile from "@/components/profile/InitProfile";
 
 const ProfileLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { activeAccount, isReady } = useWallet();
   const { user, isLoading, error } = useProfileContext();
-  const { mutate, isPending: isInitingProfile } = useInitProfile();
   const [isSidebarShow, setIsSidebarShow] = useState(false);
   const [width, setWidth] = useState(0);
 
@@ -66,9 +63,7 @@ const ProfileLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
   if (!user) {
     return (
       <div className="h-full flex items-center justify-center">
-        <Button variant="primary" onClick={() => mutate()} isLoading={isInitingProfile}>
-          Create Profile
-        </Button>
+        <InitProfile />
       </div>
     );
   }

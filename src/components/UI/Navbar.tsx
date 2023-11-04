@@ -3,6 +3,7 @@ import { formatAddress } from "@/utils/string.util";
 import { Bars3Icon, ChevronDownIcon } from "@heroicons/react/20/solid";
 import { useWallet } from "@txnlab/use-wallet";
 import Image from "next/image";
+import Logo from "./Logo";
 
 type Props = {
   toggleSidebar: () => void;
@@ -13,10 +14,7 @@ const Navbar: React.FC<Props> = ({ toggleSidebar }) => {
   return (
     <nav className="bg-white flex items-center justify-between fixed inset-x-0 top-0 z-10">
       <div className="py-4 lg:py-6 pl-7 lg:pl-14 pr-4 lg:pr-8 flex w-full justify-between items-center lg:max-w-[345px]">
-        <div className="flex items-center gap-x-4">
-          <Image src="/logo.png" height={54} width={54} className="h-[54px]" alt="AlgoPass" />
-          <span className="font-bold text-2xl">AlgoPass</span>
-        </div>
+        <Logo />
         <button onClick={toggleSidebar}>
           <Bars3Icon fontSize={46} className="h-[40px] cursor-pointer" />
         </button>

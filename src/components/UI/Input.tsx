@@ -1,6 +1,7 @@
 "use client";
 import clsx from "clsx";
 import { ForwardRefRenderFunction, forwardRef, useEffect, useMemo, useRef, useState } from "react";
+import { UseFormRegisterReturn } from "react-hook-form";
 
 type InputProps = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -10,10 +11,11 @@ type InputProps = React.DetailedHTMLProps<
   prefix?: string;
   error?: string;
   Action?: React.ReactNode;
-};
+  currentLength?: number;
+} & UseFormRegisterReturn;
 
 const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
-  { label, prefix, error, Action, ...props },
+  { label, prefix, error, Action, currentLength, ...props },
   ref
 ) => {
   const spanRef = useRef<HTMLSpanElement>(null);
@@ -34,7 +36,7 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
   }, [prefix]);
 
   return (
-    <div className="lg:space-y-1 w-full">
+    <div className="lg:space-y-1 w-full relative">
       <div className="flex gap-x-4 items-center justify-between">
         <div className="flex gap-x-4 items-center">
           <label
@@ -66,11 +68,18 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
           </span>
         </div>
       ) : (
-        <input
-          {...props}
-          ref={ref}
-          className="border-[#DDDDE3] border bg-white rounded px-4 py-3 w-full disabled:bg-[#F9F9F9] disabled:cursor-not-allowed text-sm lg:text-base"
-        />
+        <div className="relative">
+          <input
+            {...props}
+            ref={ref}
+            className="border-[#DDDDE3] border bg-white rounded px-4 py-3 w-full disabled:bg-[#F9F9F9] disabled:cursor-not-allowed text-sm lg:text-base"
+          />
+          {props.maxLength && (
+            <div className="absolute right-2.5 bottom-2.5 text-xs text-gray-700">
+              {currentLength || 0}/{props.maxLength}
+            </div>
+          )}
+        </div>
       )}
     </div>
   );

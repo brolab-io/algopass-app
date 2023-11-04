@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import { TSocialLink, supabaseServer } from "@/utils/supabase";
 import { Algodv2, decodeAddress } from "algosdk";
 import { decodeProfile } from "@/utils/decode.util";
+import { isProfileNotFound } from "@/utils/contract.util";
 
 const appID = Number(process.env.NEXT_PUBLIC_ALGOD_APP_ID)!;
 
@@ -25,10 +26,7 @@ export const getAlgoProfile = async (wallet: string) => {
       .do();
     return decodeProfile(box.value);
   } catch (error) {
-    const _error = error as any;
-    if ("status" in _error && _error.status === 404) {
-      return null;
-    }
+    if (isProfileNotFound(error)) return null;
     throw error;
   }
 };

@@ -9,6 +9,14 @@
           "name": "payment"
         },
         {
+          "type": "string",
+          "name": "name"
+        },
+        {
+          "type": "string",
+          "name": "bio"
+        },
+        {
           "type": "(string,string)[]",
           "name": "urls"
         }
@@ -22,15 +30,7 @@
       "args": [
         {
           "type": "string",
-          "name": "name"
-        },
-        {
-          "type": "string",
           "name": "bio"
-        },
-        {
-          "type": "string",
-          "name": "uri"
         },
         {
           "type": "(string,string)[]",
@@ -38,7 +38,7 @@
         }
       ],
       "returns": {
-        "type": "(string,string,string,(string,string)[])"
+        "type": "(string,string,(string,string)[])"
       }
     },
     {
@@ -50,7 +50,7 @@
         }
       ],
       "returns": {
-        "type": "(string,string,string,(string,string)[])"
+        "type": "(string,string,(string,string)[])"
       }
     },
     {
