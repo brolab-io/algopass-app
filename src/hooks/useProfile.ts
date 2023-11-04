@@ -2,6 +2,7 @@ import { useAlgoPassContext } from "@/components/providers/AlgoProvider";
 import { decodeProfile } from "@/utils/decode.util";
 import { useQuery } from "@tanstack/react-query";
 import { decodeAddress } from "algosdk";
+import { isProfileNotFound } from "@/utils/contract.util";
 
 const useProfile = (walletAddress?: string) => {
   const { appID, client } = useAlgoPassContext();
@@ -16,8 +17,7 @@ const useProfile = (walletAddress?: string) => {
           .do();
         return decodeProfile(box.value);
       } catch (error) {
-        const _error = error as any;
-        if ("status" in _error && _error.status === 404) {
+        if (isProfileNotFound(error)) {
           return null;
         }
         throw error;

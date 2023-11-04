@@ -65,8 +65,8 @@ const InfomationPage = () => {
           <span className="block font-bold text-[#27272A]">Avatar</span>
           <div
             className={clsx(
-              "w-full aspect-square bg-white relative rounded-lg overflow-hidden",
-              !user?.uri && "border border-dashed"
+              "w-full aspect-square bg-white relative rounded-lg overflow-hidden"
+              // !user?.uri && "border border-dashed"
             )}
           >
             {/* {user?.uri ? (
