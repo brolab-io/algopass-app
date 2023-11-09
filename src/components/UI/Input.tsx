@@ -1,6 +1,7 @@
 "use client";
 import clsx from "clsx";
 import { ForwardRefRenderFunction, forwardRef, useEffect, useMemo, useRef, useState } from "react";
+import { UseFormRegisterReturn } from "react-hook-form";
 
 type InputProps = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -8,10 +9,13 @@ type InputProps = React.DetailedHTMLProps<
 > & {
   label: string;
   prefix?: string;
-};
+  error?: string;
+  Action?: React.ReactNode;
+  currentLength?: number;
+} & UseFormRegisterReturn;
 
 const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
-  { label, prefix, ...props },
+  { label, prefix, error, Action, currentLength, ...props },
   ref
 ) => {
   const spanRef = useRef<HTMLSpanElement>(null);
@@ -32,10 +36,19 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
   }, [prefix]);
 
   return (
-    <div className="space-y-1 w-full">
-      <label htmlFor={props.name} className="block font-bold text-[#27272A]">
-        {label}
-      </label>
+    <div className="lg:space-y-1 w-full relative">
+      <div className="flex gap-x-4 items-center justify-between">
+        <div className="flex gap-x-4 items-center">
+          <label
+            htmlFor={props.name}
+            className="block font-bold text-[#27272A] text-sm lg:text-base"
+          >
+            {label}
+          </label>
+          {error && <span className="text-[#F44336] font-medium text-sm">{error}</span>}
+        </div>
+        {Action}
+      </div>
       {prefix ? (
         <div className="relative">
           <input
@@ -43,7 +56,7 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
             ref={ref}
             style={inputStyle}
             className={clsx(
-              "border-[#DDDDE3] border font-medium bg-white rounded px-4 py-3 w-full",
+              "border-[#DDDDE3] border font-medium bg-white rounded px-4 py-3 w-full text-sm lg:text-base",
               !spanWidth && "placeholder:opacity-0"
             )}
           />
@@ -55,11 +68,18 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
           </span>
         </div>
       ) : (
-        <input
-          {...props}
-          ref={ref}
-          className="border-[#DDDDE3] border bg-white rounded px-4 py-3 w-full"
-        />
+        <div className="relative">
+          <input
+            {...props}
+            ref={ref}
+            className="border-[#DDDDE3] border bg-white rounded px-4 py-3 w-full disabled:bg-[#F9F9F9] disabled:cursor-not-allowed text-sm lg:text-base"
+          />
+          {props.maxLength && (
+            <div className="absolute right-2.5 bottom-2.5 text-xs text-gray-700">
+              {currentLength || 0}/{props.maxLength}
+            </div>
+          )}
+        </div>
       )}
     </div>
   );

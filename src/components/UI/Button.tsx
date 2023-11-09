@@ -6,7 +6,7 @@ type ButtonProps = React.DetailedHTMLProps<
   HTMLButtonElement
 > & {
   variant?: "primary" | "secondary" | "danger";
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
   isLoading?: boolean;
 };
 
@@ -35,8 +35,8 @@ const Button: React.FC<ButtonProps> = ({
     <button
       disabled={isLoading || disabled}
       className={clsx(
-        "rounded font-bold px-8 py-3 transition-all duration-300 flex items-center gap-x-2",
-        "disabled:opacity-50 disabled:cursor-not-allowed",
+        "rounded font-bold px-6 lg:px-8 py-2 lg:py-3 transition-all duration-300 flex items-center gap-x-2",
+        "disabled:opacity-50 disabled:cursor-not-allowed text-sm lg:text-base",
         variantClass,
         className
       )}

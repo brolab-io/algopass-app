@@ -1,15 +1,32 @@
 "use client";
-import { WalletProvider as AlgoWalletProvider } from "@txnlab/use-wallet";
-import { createContext, useMemo } from "react";
-import { Algodv2 } from "algosdk";
+import { createContext, useContext, useMemo } from "react";
+import algosdk, { Algodv2 } from "algosdk";
+import { AppDetails } from "@algorandfoundation/algokit-utils/types/app-client";
+import { TransactionSignerAccount } from "@algorandfoundation/algokit-utils/types/account";
+import { getAlgoIndexerClient } from "@algorandfoundation/algokit-utils";
+import { useWallet } from "@txnlab/use-wallet";
+import { AlgopassClient } from "../../contract/AlgopassClient";
 
 type TAlgoContext = {
   client: Algodv2;
+  algopassClient: AlgopassClient;
+  appID: number;
+  appAddress: string;
 };
 
 const AlgoContext = createContext({} as TAlgoContext);
 
+export const useAlgoPassContext = () => {
+  return useContext(AlgoContext);
+};
+
 const AlgoProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
+  const { signer, activeAddress } = useWallet();
+  const appID = Number(process.env.NEXT_PUBLIC_ALGOD_APP_ID);
+  const appAddress = useMemo(() => {
+    return algosdk.getApplicationAddress(appID);
+  }, [appID]);
+
   const client = useMemo(() => {
     const algodToken = process.env.NEXT_PUBLIC_ALGOD_TOKEN;
     const algodServer = process.env.NEXT_PUBLIC_ALGOD_SERVER;
@@ -19,7 +36,34 @@ const AlgoProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     return new Algodv2(algodToken, algodServer, algodPort);
   }, []);
 
-  const contextValue = useMemo(() => ({ client }), [client]);
+  const appDetails = useMemo<AppDetails>(() => {
+    const indexerToken = process.env.NEXT_PUBLIC_INDEXER_TOKEN;
+    const indexerServer = process.env.NEXT_PUBLIC_INDEXER_SERVER;
+    const indexerPort = process.env.NEXT_PUBLIC_INDEXER_PORT;
+
+    if (typeof indexerToken !== "string") throw new Error("Missing Algod Token");
+    if (typeof indexerServer !== "string") throw new Error("Missing Algod Server");
+    const indexer = getAlgoIndexerClient({
+      server: indexerServer,
+      port: indexerPort,
+      token: indexerToken,
+    });
+    return {
+      resolveBy: "id",
+      id: appID,
+      sender: { signer, addr: activeAddress } as TransactionSignerAccount,
+      findExistingUsing: indexer,
+    };
+  }, [signer, activeAddress, appID]);
+
+  const algopassClient = useMemo(() => {
+    return new AlgopassClient(appDetails, client);
+  }, [appDetails, client]);
+
+  const contextValue = useMemo(
+    () => ({ client, algopassClient, appID, appAddress }),
+    [client, algopassClient, appID, appAddress]
+  );
 
   return <AlgoContext.Provider value={contextValue}>{children}</AlgoContext.Provider>;
 };
