@@ -16,6 +16,7 @@
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
     "@perawallet/connect": "^1.3.3",
+    "@randlabs/myalgo-connect": "^1.4.2",
     "@supabase/supabase-js": "^2.38.4",
     "@tanstack/react-query": "^5.4.3",
     "@txnlab/use-wallet": "^2.2.0",

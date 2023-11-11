@@ -1,6 +1,5 @@
 "use client";
 import { ShieldCheckIcon } from "@heroicons/react/20/solid";
-import { open_sans } from "@/app/fonts";
 import Button from "@/components/UI/Button";
 import Input from "@/components/UI/Input";
 import Textarea from "@/components/UI/Textarea";
@@ -8,11 +7,7 @@ import clsx from "clsx";
 import { useCallback, useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { useProfileContext } from "../providers";
-import { useMutation } from "@tanstack/react-query";
-import { updateProfile } from "@/services/profile.service";
 import { useWallet } from "@txnlab/use-wallet";
-import Image from "next/image";
-import { toast } from "react-toastify";
 import useUpdateProfile from "@/hooks/useUpdateProfile";
 import PageTitle from "@/components/UI/PageTitle";
 
@@ -59,7 +54,10 @@ const InfomationPage = () => {
 
   return (
     <div>
-      <PageTitle title="Infomation" subtitle="Update your personal information" />
+      <PageTitle
+        title="Infomation"
+        subtitle="Update your personal information"
+      />
       <div className="grid lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mt-4 lg:mt-8">
         <div className="space-y-1">
           <span className="block font-bold text-[#27272A]">Avatar</span>
@@ -74,7 +72,10 @@ const InfomationPage = () => {
             ) : null} */}
           </div>
         </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-4 lg:col-span-2">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="w-full space-y-4 lg:col-span-2"
+        >
           <Input
             label="Your Name"
             placeholder="John Doe"

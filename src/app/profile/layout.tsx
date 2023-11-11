@@ -8,12 +8,12 @@ import { useLayoutEffect, useState } from "react";
 import clsx from "clsx";
 import InitProfile from "@/components/profile/InitProfile";
 
-const ProfileLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
-  const { activeAccount, isReady } = useWallet();
+const ProfileLayout: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
+  const { activeAccount, isReady, isActive, connectedAccounts } = useWallet();
   const { user, isLoading, error } = useProfileContext();
   const [isSidebarShow, setIsSidebarShow] = useState(false);
   const [width, setWidth] = useState(0);
-
+  console.log({ activeAccount, isReady, user, isActive, connectedAccounts });
   useLayoutEffect(() => {
     if (typeof window !== "undefined") {
       setWidth(window.innerWidth);
@@ -106,7 +106,9 @@ const ProfileLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
   );
 };
 
-const ProfileLayoutWithProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
+const ProfileLayoutWithProvider: React.FC<React.PropsWithChildren<{}>> = ({
+  children,
+}) => {
   return (
     <ProfileProviders>
       <ProfileLayout>{children}</ProfileLayout>
