@@ -13,7 +13,6 @@ const ProfileLayout: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const { user, isLoading, error } = useProfileContext();
   const [isSidebarShow, setIsSidebarShow] = useState(false);
   const [width, setWidth] = useState(0);
-  console.log({ activeAccount, isReady, user, isActive, connectedAccounts });
   useLayoutEffect(() => {
     if (typeof window !== "undefined") {
       setWidth(window.innerWidth);

@@ -22,7 +22,7 @@ const useInitProfile = () => {
         toast.error(
           `Minimum balance required to initialize profile is  ${AlgoAmount.MicroAlgos(mbr)}. You have ${balance.amount.microAlgos()}.`
         );
-        console.log(balance);
+
         return;
       }
 

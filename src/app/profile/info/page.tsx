@@ -41,7 +41,6 @@ const InfomationPage = () => {
 
   const onSubmit = useCallback(
     (data: FormValues) => {
-      console.log(user, activeAccount);
       if (!activeAccount) return;
       if (!user) return;
       mutate({

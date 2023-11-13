@@ -1,9 +1,10 @@
 import Logo from "@/components/UI/Logo";
 import Section1 from "@/components/sections/Section1";
 import Section2 from "@/components/sections/Section2";
+import Section3 from "@/components/sections/Section3";
+import Section4 from "@/components/sections/Section4";
 
 import { Bars3Icon } from "@heroicons/react/24/outline";
-import Image from "next/image";
 import Link from "next/link";
 
 const navigation = [
@@ -38,13 +39,13 @@ const LandingPage = () => {
           </div>
           <div className="hidden lg:flex lg:gap-x-12">
             {navigation.map((item) => (
-              <a
+              <Link
                 key={item.name}
                 href={item.href}
-                className="text-sm font-semibold leading-6 text-gray-900"
+                className="text-lg font-semibold leading-6 text-gray-900 hover:text-gray-500 transition-colors duration-500 border-b-white border-b-2 hover:border-b-indigo-300"
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
@@ -60,6 +61,8 @@ const LandingPage = () => {
       <main>
         <Section1 />
         <Section2 />
+        <Section3 />
+        <Section4 />
       </main>
     </>
   );
