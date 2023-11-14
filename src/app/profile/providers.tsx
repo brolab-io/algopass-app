@@ -1,8 +1,6 @@
 import { PropsWithChildren, createContext, useContext, useMemo } from "react";
-import { QueryClientProvider, QueryClient, useQuery } from "@tanstack/react-query";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { useWallet } from "@txnlab/use-wallet";
-import { getProfile } from "@/services/profile.service";
-import { TSocialLink, TUser } from "@/utils/supabase";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useProfile from "@/hooks/useProfile";
@@ -20,9 +18,13 @@ const ProfileContext = createContext({} as TProfileContext);
 
 export const useProfileContext = () => useContext(ProfileContext);
 
-const ProfileContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
+const ProfileContextProvider: React.FC<PropsWithChildren<{}>> = ({
+  children,
+}) => {
   const { activeAccount } = useWallet();
-  const { data, isLoading, refetch, error } = useProfile(activeAccount?.address);
+  const { data, isLoading, refetch, error } = useProfile(
+    activeAccount?.address
+  );
 
   const contextValue = useMemo(
     () => ({
@@ -34,10 +36,14 @@ const ProfileContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
     [data, isLoading, refetch, error]
   );
 
-  return <ProfileContext.Provider value={contextValue}>{children}</ProfileContext.Provider>;
+  return (
+    <ProfileContext.Provider value={contextValue}>
+      {children}
+    </ProfileContext.Provider>
+  );
 };
 
-const ProfileProviders: React.FC<PropsWithChildren> = ({ children }) => {
+const ProfileProviders: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <ProfileContextProvider>{children}</ProfileContextProvider>

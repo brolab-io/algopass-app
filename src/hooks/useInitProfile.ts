@@ -1,6 +1,7 @@
 import { queryClient } from "@/app/profile/providers";
 import { useAlgoPassContext } from "@/components/providers/AlgoProvider";
 import { UserRecord } from "@/contract/AlgopassClient";
+import { AlgoAmount } from "@algorandfoundation/algokit-utils/types/amount";
 import { useMutation } from "@tanstack/react-query";
 import { useWallet } from "@txnlab/use-wallet";
 import algosdk, { BoxReference, decodeAddress } from "algosdk";
@@ -8,11 +9,24 @@ import { toast } from "react-toastify";
 
 const useInitProfile = () => {
   const { algopassClient, appID, appAddress, client } = useAlgoPassContext();
-  const { activeAccount } = useWallet();
+  const { activeAccount, getAccountInfo } = useWallet();
 
   return useMutation({
     mutationFn: async (payload: UserRecord) => {
       if (!activeAccount?.address) return;
+
+      // check balance
+      const balance = await getAccountInfo();
+      const mbr = balance["min-balance"] + Number(process.env.NEXT_PUBLIC_MINIMUM_BALANCE_REQUIRE!)
+      if (balance.amount.algos().valueOf() < mbr) {
+        toast.error(
+          `Minimum balance required to initialize profile is  ${AlgoAmount.MicroAlgos(mbr)}. You have ${balance.amount.microAlgos()}.`
+        );
+
+        return;
+      }
+
+
       const boxes: BoxReference[] = [
         { appIndex: appID, name: decodeAddress(activeAccount.address).publicKey },
       ];

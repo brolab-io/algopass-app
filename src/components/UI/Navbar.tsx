@@ -4,6 +4,7 @@ import { Bars3Icon, ChevronDownIcon } from "@heroicons/react/20/solid";
 import { useWallet } from "@txnlab/use-wallet";
 import Image from "next/image";
 import Logo from "./Logo";
+import ConnectButton from "../wallet/ConnectButton";
 
 type Props = {
   toggleSidebar: () => void;
@@ -20,7 +21,8 @@ const Navbar: React.FC<Props> = ({ toggleSidebar }) => {
         </button>
       </div>
       <div className="pr-10 hidden lg:block">
-        <div className="flex items-center justify-between gap-x-4 w-full min-w-[220px] hover:bg-primary/10 py-2 px-4 rounded-xl transition-all cursor-pointer">
+        <ConnectButton />
+        {/* <div className="flex items-center justify-between gap-x-4 w-full min-w-[220px] hover:bg-primary/10 py-2 px-4 rounded-xl transition-all cursor-pointer">
           <div className="flex items-center gap-x-4">
             <div className="aspect-square h-[54px] rounded-[14px] bg-slate-300"></div>
             <div className="space-y-0.5">
@@ -31,7 +33,7 @@ const Navbar: React.FC<Props> = ({ toggleSidebar }) => {
             </div>
           </div>
           <ChevronDownIcon className="h-[20px] text-[#C4C4C4]" />
-        </div>
+        </div> */}
       </div>
     </nav>
   );

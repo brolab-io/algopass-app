@@ -12,7 +12,9 @@ type PageProps = {
 
 export const revalidate = 0;
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const profile = await getAlgoProfile(params.wallet);
 
   if (!profile) {
@@ -48,7 +50,6 @@ const ProfilePage = async ({ params }: PageProps) => {
     notFound();
   }
   const algoProfile = await getAlgoProfile(params.wallet);
-  console.log(algoProfile);
   if (!algoProfile) {
     return <div>Profile not found</div>;
   }

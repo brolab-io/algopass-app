@@ -20,7 +20,7 @@ export const useAlgoPassContext = () => {
   return useContext(AlgoContext);
 };
 
-const AlgoProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
+const AlgoProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const { signer, activeAddress } = useWallet();
   const appID = Number(process.env.NEXT_PUBLIC_ALGOD_APP_ID);
   const appAddress = useMemo(() => {
@@ -32,7 +32,8 @@ const AlgoProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     const algodServer = process.env.NEXT_PUBLIC_ALGOD_SERVER;
     const algodPort = process.env.NEXT_PUBLIC_ALGOD_PORT;
     if (typeof algodToken !== "string") throw new Error("Missing Algod Token");
-    if (typeof algodServer !== "string") throw new Error("Missing Algod Server");
+    if (typeof algodServer !== "string")
+      throw new Error("Missing Algod Server");
     return new Algodv2(algodToken, algodServer, algodPort);
   }, []);
 
@@ -41,8 +42,10 @@ const AlgoProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     const indexerServer = process.env.NEXT_PUBLIC_INDEXER_SERVER;
     const indexerPort = process.env.NEXT_PUBLIC_INDEXER_PORT;
 
-    if (typeof indexerToken !== "string") throw new Error("Missing Algod Token");
-    if (typeof indexerServer !== "string") throw new Error("Missing Algod Server");
+    if (typeof indexerToken !== "string")
+      throw new Error("Missing Algod Token");
+    if (typeof indexerServer !== "string")
+      throw new Error("Missing Algod Server");
     const indexer = getAlgoIndexerClient({
       server: indexerServer,
       port: indexerPort,
@@ -65,7 +68,9 @@ const AlgoProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     [client, algopassClient, appID, appAddress]
   );
 
-  return <AlgoContext.Provider value={contextValue}>{children}</AlgoContext.Provider>;
+  return (
+    <AlgoContext.Provider value={contextValue}>{children}</AlgoContext.Provider>
+  );
 };
 
 export default AlgoProvider;
