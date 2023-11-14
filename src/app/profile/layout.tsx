@@ -7,9 +7,11 @@ import ProfileProviders, { useProfileContext } from "./providers";
 import { useLayoutEffect, useState } from "react";
 import clsx from "clsx";
 import InitProfile from "@/components/profile/InitProfile";
+import { InformationCircleIcon } from "@heroicons/react/24/outline";
 
 const ProfileLayout: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
-  const { activeAccount, isReady, isActive, connectedAccounts } = useWallet();
+  const { activeAccount, isReady, isActive, connectedAccounts, activeAddress } =
+    useWallet();
   const { user, isLoading, error } = useProfileContext();
   const [isSidebarShow, setIsSidebarShow] = useState(false);
   const [width, setWidth] = useState(0);
@@ -98,6 +100,15 @@ const ProfileLayout: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
           </div>
         )}
         <div className="px-7 md:px-10 lg:px-[50px] py-[30px] h-[calc(100vh-86px)] lg:h-[calc(100vh-102px)] overflow-scroll">
+          <div className="bg-indigo-100 py-6 px-4 rounded-lg flex items-center gap-3">
+            <InformationCircleIcon width={20} height={20} />
+            <span className="font-bold">Your AlgoPass is live:</span>
+            <a
+              href={`${window.location.protocol}//${window.location.host}/@${activeAddress}`}
+              target="_blank"
+              className="underline"
+            >{`${window.location.protocol}//${window.location.host}/@${activeAddress}`}</a>
+          </div>
           {children}
         </div>
       </div>

@@ -7,6 +7,7 @@ import Connect from "./Connect";
 import { Account, Provider, useWallet } from "@txnlab/use-wallet";
 import Image from "next/image";
 import { formatAddress } from "@/utils/string.util";
+import ConnectedButton from "./ConnectedButton";
 
 const ConnectButton = () => {
   let [isOpen, setIsOpen] = useState(true);
@@ -123,6 +124,7 @@ const ConnectButton = () => {
         </Transition.Root>
       </>
     );
+  else return <ConnectedButton />;
 };
 
 export default ConnectButton;
