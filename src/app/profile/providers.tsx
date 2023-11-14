@@ -1,12 +1,6 @@
 import { PropsWithChildren, createContext, useContext, useMemo } from "react";
-import {
-  QueryClientProvider,
-  QueryClient,
-  useQuery,
-} from "@tanstack/react-query";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { useWallet } from "@txnlab/use-wallet";
-import { getProfile } from "@/services/profile.service";
-import { TSocialLink, TUser } from "@/utils/supabase";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useProfile from "@/hooks/useProfile";

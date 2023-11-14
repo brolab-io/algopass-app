@@ -8,6 +8,7 @@ import { useLayoutEffect, useState } from "react";
 import clsx from "clsx";
 import InitProfile from "@/components/profile/InitProfile";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
+import { redirect } from "next/navigation";
 
 const ProfileLayout: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const { activeAccount, isReady, isActive, connectedAccounts, activeAddress } =
@@ -54,11 +55,7 @@ const ProfileLayout: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   }
 
   if (!activeAccount) {
-    return (
-      <div className="h-full flex items-center justify-center">
-        <Connect />
-      </div>
-    );
+    redirect("/");
   }
 
   if (!user) {
