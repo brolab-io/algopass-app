@@ -3,6 +3,7 @@ import Section1 from "@/components/sections/Section1";
 import Section2 from "@/components/sections/Section2";
 import Section3 from "@/components/sections/Section3";
 import Section4 from "@/components/sections/Section4";
+import ConnectButton from "@/components/wallet/ConnectButton";
 
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import Link from "next/link";
@@ -49,12 +50,13 @@ const LandingPage = () => {
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a
+            {/* <a
               href="#"
               className="text-sm font-semibold leading-6 text-gray-900"
             >
               Log in <span aria-hidden="true">&rarr;</span>
-            </a>
+            </a> */}
+            <ConnectButton />
           </div>
         </nav>
       </header>
