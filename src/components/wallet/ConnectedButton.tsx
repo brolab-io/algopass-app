@@ -14,9 +14,11 @@ import {
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment, useCallback, useMemo } from "react";
 import Link from "next/link";
+import { useModal } from "@/hooks/useModal";
 
 const ConnectedButton = () => {
   const { activeAddress, providers } = useWallet();
+  const { shareModalHandle } = useModal();
 
   const activeProvider = useMemo(() => {
     if (!providers || !activeAddress) return null;
@@ -80,7 +82,10 @@ const ConnectedButton = () => {
               </Link>
             </Menu.Item>
             <Menu.Item>
-              <button className="w-full bg-white hover:bg-gray-100 transition-colors duration-300 rounded font-bold px-6 lg:px-8 py-2 lg:py-3 flex items-center gap-x-2 disabled:opacity-50 disabled:cursor-not-allowed text-sm lg:text-base text-gray-600 hover:text-indigo-500">
+              <button
+                className="w-full bg-white hover:bg-gray-100 transition-colors duration-300 rounded font-bold px-6 lg:px-8 py-2 lg:py-3 flex items-center gap-x-2 disabled:opacity-50 disabled:cursor-not-allowed text-sm lg:text-base text-gray-600 hover:text-indigo-500"
+                onClick={shareModalHandle}
+              >
                 <ShareIcon
                   className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
                   aria-hidden="true"
