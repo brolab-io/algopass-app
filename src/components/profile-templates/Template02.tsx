@@ -6,9 +6,11 @@ import {
 import Image from "next/image";
 import { useMemo } from "react";
 import { UserRecord } from "../../contract/AlgopassClient";
+import { getStorageUrl } from "@/utils/string.util";
 
 type Props = {
   profile: UserRecord;
+  wallet: string;
 };
 
 type URLParts = {
@@ -17,7 +19,7 @@ type URLParts = {
   name: string;
 };
 
-const Template02: React.FC<Props> = ({ profile }) => {
+const Template02: React.FC<Props> = ({ profile, wallet }) => {
   const { socials } = useMemo(() => {
     const socials: URLParts[] = [];
     profile.urls.forEach((url) => {
@@ -41,11 +43,11 @@ const Template02: React.FC<Props> = ({ profile }) => {
       <div className="flex-col max-w-sm px-4 py-6 mx-auto mb-5 text-black bg-white border-4 border-t-8 border-gray-900 shadow-2xl rounded-3xl">
         <div className="text-center">
           <Image
-            className="rounded-full"
+            className="rounded-full aspect-square"
             alt="profile pic"
             height={512}
             width={512}
-            src="/feng.jpeg"
+            src={getStorageUrl(wallet.replace("%40", ""))}
           />
           <p className="pt-2 text-2xl font-bold">{profile.name}</p>
           <p className="text-lg font-medium text-black/80">@{profile.name}</p>

@@ -28,7 +28,6 @@ type ProfileUpdatePayload = ProfilePayload & { signature: Uint8Array }
 
 export async function POST(req: Request, { params }: { params: { wallet: string } }) {
     const { wallet } = params;
-    console.log(wallet);
     // const { name, bio, urls, signature }: ProfileUpdatePayload = await req.json()
     // if (!name) {
     //     return Response.json({ message: "Name is required" }, {

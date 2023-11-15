@@ -86,3 +86,21 @@ export const updateProfile = async (wallet: string, payload: ProfilePayload) => 
 };
 
 
+export const updateAvatar = async (wallet: string, avatar: File) => {
+  if (!avatar) return Promise.reject(new Error("Avatar not provided!"));
+  try {
+    const { data, error } = await supabaseServer
+      .storage
+      .from("algopass")
+      .upload(`${wallet}.png`, avatar, {
+        upsert: true,
+      });
+    if (error) {
+      throw error;
+    }
+    return data;
+  } catch (error) {
+    console.log("Cached error", error);
+    return Promise.reject(error);
+  }
+};

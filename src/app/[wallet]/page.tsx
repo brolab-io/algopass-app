@@ -55,7 +55,7 @@ const ProfilePage = async ({ params }: PageProps) => {
   }
   return (
     <Container className="h-full">
-      <Template02 profile={algoProfile} />
+      <Template02 profile={algoProfile} wallet={params.wallet} />
     </Container>
   );
 };

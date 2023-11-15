@@ -4,12 +4,17 @@ import Button from "@/components/UI/Button";
 import Input from "@/components/UI/Input";
 import Textarea from "@/components/UI/Textarea";
 import clsx from "clsx";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useProfileContext } from "../providers";
 import { useWallet } from "@txnlab/use-wallet";
 import useUpdateProfile from "@/hooks/useUpdateProfile";
 import PageTitle from "@/components/UI/PageTitle";
+import Image from "next/image";
+import { getStorageUrl } from "@/utils/string.util";
+import { PencilSquareIcon } from "@heroicons/react/24/outline";
+import { updateAvatar } from "@/services/profile.service";
+import useUpdateAvatar from "@/hooks/useUpdateAvatar";
 
 type FormValues = {
   username: string;
@@ -24,6 +29,8 @@ const InfomationPage = () => {
     return `${window.location.origin}/@`;
   }, []);
   const { user, refetch } = useProfileContext();
+  const { mutate: mutateAvatar } = useUpdateAvatar();
+  const fileRef = useRef<HTMLInputElement>(null);
 
   const { setValue, register, handleSubmit } = useForm<FormValues>();
   const { mutate, isPending } = useUpdateProfile();
@@ -51,6 +58,22 @@ const InfomationPage = () => {
     [mutate, user, activeAccount]
   );
 
+  const handleChangeAvatar = useCallback(() => {
+    if (fileRef.current) {
+      fileRef.current.click();
+    }
+  }, []);
+
+  const handleFileChange = useCallback(async () => {
+    if (!activeAccount) return;
+    if (!fileRef.current) return;
+    const _file = fileRef.current.files?.[0];
+    if (!_file) return;
+    const formData = new FormData();
+    formData.append("file", _file);
+    mutateAvatar(formData);
+  }, [activeAccount, mutateAvatar]);
+
   return (
     <div>
       <PageTitle
@@ -62,13 +85,36 @@ const InfomationPage = () => {
           <span className="block font-bold text-[#27272A]">Avatar</span>
           <div
             className={clsx(
-              "w-full aspect-square bg-white relative rounded-lg overflow-hidden"
-              // !user?.uri && "border border-dashed"
+              "w-full aspect-square bg-white relative rounded-lg overflow-hidden",
+              !user?.wallet && "border border-dashed"
             )}
           >
-            {/* {user?.uri ? (
-              <Image src={user.uri} layout="fill" objectFit="cover" alt="avatar" />
-            ) : null} */}
+            {user?.wallet ? (
+              <Image
+                src={getStorageUrl(user.wallet)}
+                layout="fill"
+                objectFit="cover"
+                alt="avatar"
+              />
+            ) : null}
+            <div className="absolute top-1 right-1">
+              <button
+                className="bg-gray-100 p-1 rounded-md hover:bg-gray-200 transition-colors duration-300"
+                onClick={handleChangeAvatar}
+              >
+                <PencilSquareIcon
+                  width={32}
+                  height={32}
+                  className="text-indigo-500"
+                />
+              </button>
+              <input
+                type="file"
+                className="hidden"
+                ref={fileRef}
+                onChange={handleFileChange}
+              />
+            </div>
           </div>
         </div>
         <form

@@ -12,6 +12,11 @@ const useProfile = (walletAddress?: string) => {
     queryFn: async () => {
       if (!walletAddress) return;
       try {
+
+        const { data } = await fetch(`/api/profile/${walletAddress}`).then(res => res.json());
+        if (data) return data;
+
+
         const box = await client
           .getApplicationBoxByName(appID, decodeAddress(walletAddress).publicKey)
           .do();
