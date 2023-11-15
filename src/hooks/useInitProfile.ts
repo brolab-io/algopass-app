@@ -40,13 +40,14 @@ const useInitProfile = () => {
         suggestedParams,
       });
       // await algopassClient.removeProfile({}, { boxes });
-      return algopassClient.initProfile(
+      const result = await algopassClient.initProfile(
         {
           payment: paymentTx,
           ...payload,
         },
         { boxes }
       );
+      return result.return
     },
     onSuccess: () => {
       queryClient.invalidateQueries({

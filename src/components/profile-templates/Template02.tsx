@@ -1,5 +1,8 @@
-import { buildSocialUrl, extractSocialUrl, getSocialIconName } from "@/utils/social.util";
-import { TSocialLink } from "@/utils/supabase";
+import {
+  buildSocialUrl,
+  extractSocialUrl,
+  getSocialIconName,
+} from "@/utils/social.util";
 import Image from "next/image";
 import { useMemo } from "react";
 import { UserRecord } from "../../contract/AlgopassClient";
@@ -53,7 +56,9 @@ const Template02: React.FC<Props> = ({ profile }) => {
             <a href={link.url} key={index}>
               <button className="sticky w-12 h-12 text-2xl duration-1000 transform bg-transparent rounded-full hover:-translate-y-3 hover:bg-black hover:text-white">
                 <Image
-                  src={`/assets/images/socials/${getSocialIconName(link.url)}.png`}
+                  src={`/assets/images/socials/${getSocialIconName(
+                    link.url
+                  )}.png`}
                   height={64}
                   width={64}
                   alt={link.name || link.url}

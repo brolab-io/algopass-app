@@ -1,6 +1,6 @@
 "use server";
 import { revalidatePath } from "next/cache";
-import { TSocialLink, supabaseServer } from "@/utils/supabase";
+import { TAlgopass, supabaseServer } from "@/utils/supabase";
 import { Algodv2, decodeAddress } from "algosdk";
 import { decodeProfile } from "@/utils/decode.util";
 import { isProfileNotFound } from "@/utils/contract.util";
@@ -39,9 +39,9 @@ export const getProfile = async (wallet?: string) => {
     wallet = wallet.slice(3);
   }
   const { data, error } = await supabaseServer
-    .from("user")
-    .select("*, social_links(*)")
-    .or(`wallet.eq.${wallet},username.eq.${wallet}`)
+    .from("algopass")
+    .select("*")
+    .or(`wallet.eq.${wallet},name.eq.${wallet}`)
     .maybeSingle();
 
   if (error) {
@@ -50,11 +50,10 @@ export const getProfile = async (wallet?: string) => {
   return data;
 };
 
-type ProfilePayload = {
-  username: string;
-  display_name: string;
+export type ProfilePayload = {
+  name: string;
   bio: string;
-  avatar?: string;
+  urls: [string, string][]
 };
 export const updateProfile = async (wallet: string, payload: ProfilePayload) => {
   for (const k in payload) {
@@ -64,18 +63,20 @@ export const updateProfile = async (wallet: string, payload: ProfilePayload) => 
   }
   try {
     const { error } = await supabaseServer
-      .from("user")
+      .from("algopass")
       .upsert({
         wallet,
         ...payload,
+      }, {
+        onConflict: 'wallet'
       })
       .maybeSingle();
     if (error) {
       throw error;
     }
 
-    revalidatePath(`/u/${wallet}`);
-    revalidatePath(`/u/${payload.username}`);
+    revalidatePath(`/@${wallet}`);
+    revalidatePath(`/@${payload.name}`);
 
     return getProfile(wallet);
   } catch (error) {
@@ -84,39 +85,4 @@ export const updateProfile = async (wallet: string, payload: ProfilePayload) => 
   }
 };
 
-type SocialLinksPayload = Pick<TSocialLink, "url" | "title">[];
-export const updateSocialLinks = async (wallet: string, payload: SocialLinksPayload) => {
-  const profile = await getProfile(wallet);
-  if (!profile) {
-    return Promise.reject(new Error("Profile not found!"));
-  }
 
-  const deleteIds = profile.social_links
-    .filter((link) => !payload.find((l) => l.url === link.url))
-    .map((link) => link.id);
-
-  const { error: deleteError } = await supabaseServer
-    .from("social_links")
-    .delete()
-    .in("id", deleteIds);
-
-  if (deleteError) {
-    return Promise.reject(deleteError);
-  }
-
-  const { error: insertError } = await supabaseServer.from("social_links").upsert(
-    payload.map((link) => ({ wallet, ...link })),
-    {
-      defaultToNull: false,
-    }
-  );
-
-  if (insertError) {
-    return Promise.reject(insertError);
-  }
-
-  revalidatePath(`/u/${wallet}`);
-  revalidatePath(`/u/${profile.username}`);
-
-  return getProfile(wallet);
-};

@@ -1,81 +1,134 @@
-export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[]
 
 export interface Database {
   public: {
     Tables: {
-      social_links: {
+      algopass: {
         Row: {
-          created_at: string;
-          id: number;
-          title: string | null;
-          url: string;
-          wallet: string | null;
-        };
+          bio: string
+          created_at: string
+          id: string
+          name: string
+          urls: Json
+          wallet: string
+        }
         Insert: {
-          created_at?: string;
-          id?: number;
-          title?: string | null;
-          url: string;
-          wallet?: string | null;
-        };
+          bio: string
+          created_at?: string
+          id?: string
+          name: string
+          urls: Json
+          wallet: string
+        }
         Update: {
-          created_at?: string;
-          id?: number;
-          title?: string | null;
-          url?: string;
-          wallet?: string | null;
-        };
-        Relationships: [
-          {
-            foreignKeyName: "social_links_wallet_fkey";
-            columns: ["wallet"];
-            referencedRelation: "user";
-            referencedColumns: ["wallet"];
-          }
-        ];
-      };
-      user: {
+          bio?: string
+          created_at?: string
+          id?: string
+          name?: string
+          urls?: Json
+          wallet?: string
+        }
+        Relationships: []
+      }
+      launchpads: {
         Row: {
-          avatar: string | null;
-          bio: string | null;
-          cover: string | null;
-          created_at: string;
-          display_name: string;
-          username: string | null;
-          wallet: string;
-        };
+          affiliate: number | null
+          campaign_type: string
+          created_at: string
+          created_by: string
+          currency_address: string
+          id: string
+          launch_pool_pda: string
+          maximum_token_amount: string
+          minimum_token_amount: string
+          name: string | null
+          network: string | null
+          presale_rate: string
+          project_banner_url: string
+          project_category: string
+          project_description: string
+          project_email: string
+          project_logo_url: string
+          project_website: string | null
+          slug: string | null
+          token_address: string
+          token_decimals: number
+          token_sale_amount: string
+          token_symbol: string
+          token_unlock_date: string
+        }
         Insert: {
-          avatar?: string | null;
-          bio?: string | null;
-          cover?: string | null;
-          created_at?: string;
-          display_name: string;
-          username?: string | null;
-          wallet: string;
-        };
+          affiliate?: number | null
+          campaign_type: string
+          created_at?: string
+          created_by: string
+          currency_address: string
+          id?: string
+          launch_pool_pda: string
+          maximum_token_amount: string
+          minimum_token_amount: string
+          name?: string | null
+          network?: string | null
+          presale_rate: string
+          project_banner_url: string
+          project_category: string
+          project_description: string
+          project_email: string
+          project_logo_url: string
+          project_website?: string | null
+          slug?: string | null
+          token_address: string
+          token_decimals?: number
+          token_sale_amount: string
+          token_symbol: string
+          token_unlock_date: string
+        }
         Update: {
-          avatar?: string | null;
-          bio?: string | null;
-          cover?: string | null;
-          created_at?: string;
-          display_name?: string;
-          username?: string | null;
-          wallet?: string;
-        };
-        Relationships: [];
-      };
-    };
+          affiliate?: number | null
+          campaign_type?: string
+          created_at?: string
+          created_by?: string
+          currency_address?: string
+          id?: string
+          launch_pool_pda?: string
+          maximum_token_amount?: string
+          minimum_token_amount?: string
+          name?: string | null
+          network?: string | null
+          presale_rate?: string
+          project_banner_url?: string
+          project_category?: string
+          project_description?: string
+          project_email?: string
+          project_logo_url?: string
+          project_website?: string | null
+          slug?: string | null
+          token_address?: string
+          token_decimals?: number
+          token_sale_amount?: string
+          token_symbol?: string
+          token_unlock_date?: string
+        }
+        Relationships: []
+      }
+    }
     Views: {
-      [_ in never]: never;
-    };
+      [_ in never]: never
+    }
     Functions: {
-      [_ in never]: never;
-    };
+      [_ in never]: never
+    }
     Enums: {
-      [_ in never]: never;
-    };
+      [_ in never]: never
+    }
     CompositeTypes: {
-      [_ in never]: never;
-    };
-  };
+      [_ in never]: never
+    }
+  }
 }

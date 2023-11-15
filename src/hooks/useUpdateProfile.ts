@@ -30,7 +30,15 @@ const useUpdateProfile = () => {
         { appIndex: appID, name: decodeAddress(activeAccount.address).publicKey },
       ];
 
-      return algopassClient.updateProfile(payload, { boxes });
+      const result = await algopassClient.updateProfile(payload, { boxes });
+      if (result.return) {
+        return fetch(`/api/profile/${activeAccount.address}`, {
+          method: "POST",
+        });
+      }
+      else {
+        throw new Error("Update profile failed");
+      }
     },
     onSuccess: (_, variables) => onSuccess(variables),
   });
