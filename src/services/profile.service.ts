@@ -1,7 +1,7 @@
 "use server";
 import { revalidatePath } from "next/cache";
-import { TAlgopass, supabaseServer } from "@/utils/supabase";
-import { Algodv2, decodeAddress } from "algosdk";
+import { supabaseServer } from "@/utils/supabase";
+import { Algodv2, decodeAddress, isValidAddress } from "algosdk";
 import { decodeProfile } from "@/utils/decode.util";
 import { isProfileNotFound } from "@/utils/contract.util";
 
@@ -19,6 +19,10 @@ const getAlgodClient = () => {
 export const getAlgoProfile = async (wallet: string) => {
   if (wallet.startsWith("%40")) {
     wallet = wallet.slice(3);
+  }
+
+  if (!isValidAddress(wallet)) {
+    return null;
   }
   try {
     const box = await getAlgodClient()
