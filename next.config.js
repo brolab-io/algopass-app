@@ -17,6 +17,10 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: 'ybzythkbaaeqjqqeswln.supabase.co'
+      },
+      {
+        protocol: 'https',
+        hostname: 'demos.creative-tim.com'
       }
     ],
   },

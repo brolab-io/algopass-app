@@ -96,6 +96,13 @@ const InfomationPage = () => {
                 objectFit="cover"
                 alt="avatar"
               />
+            ) : activeAccount ? (
+              <Image
+                src={getStorageUrl(activeAccount?.address)}
+                layout="fill"
+                objectFit="cover"
+                alt="avatar"
+              />
             ) : null}
             <div className="absolute top-1 right-1">
               <button

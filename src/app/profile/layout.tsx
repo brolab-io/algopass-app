@@ -12,6 +12,7 @@ import { redirect } from "next/navigation";
 import Button from "@/components/UI/Button";
 import { formatAddress } from "@/utils/string.util";
 import { ModalProvider } from "@/components/providers/ModalProvider";
+import { toast } from "react-toastify";
 
 const ProfileLayout: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const { activeAccount, isReady, isActive, connectedAccounts, activeAddress } =
@@ -39,6 +40,13 @@ const ProfileLayout: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
 
   const hideSidebar = () => {
     setIsSidebarShow(false);
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(
+      `${window.location.protocol}//${window.location.host}/@${activeAddress}`
+    );
+    toast.success("Link copied");
   };
 
   if (error) {
@@ -115,7 +123,9 @@ const ProfileLayout: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
               ) : null}
             </div>
             <div>
-              <Button variant="danger">Copy</Button>
+              <Button variant="danger" onClick={handleCopy}>
+                Copy
+              </Button>
             </div>
           </div>
           {children}

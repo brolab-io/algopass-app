@@ -1,8 +1,9 @@
 import Container from "@/components/UI/Container";
 import Template02 from "@/components/profile-templates/Template02";
+import Template03 from "@/components/profile-templates/Template03";
 import { getAlgoProfile, getProfile } from "@/services/profile.service";
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 type PageProps = {
   params: {
@@ -51,12 +52,14 @@ const ProfilePage = async ({ params }: PageProps) => {
   }
   const algoProfile = await getAlgoProfile(params.wallet);
   if (!algoProfile) {
-    return <div>Profile not found</div>;
+    redirect("/profile-not-exists");
   }
+
   return (
-    <Container className="h-full">
-      <Template02 profile={algoProfile} wallet={params.wallet} />
-    </Container>
+    <div className="h-full">
+      {/* <Template02 profile={algoProfile} wallet={params.wallet} /> */}
+      <Template03 profile={algoProfile} wallet={params.wallet} />
+    </div>
   );
 };
 
