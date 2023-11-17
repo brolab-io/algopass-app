@@ -1,7 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { Database } from "./supabase.types";
 
-const supabaseUrl = process.env.SUPABASE_PROJECT_URL;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_PROJECT_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 if (!supabaseUrl || !supabaseServiceKey) {

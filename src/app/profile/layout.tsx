@@ -9,6 +9,10 @@ import clsx from "clsx";
 import InitProfile from "@/components/profile/InitProfile";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import { redirect } from "next/navigation";
+import Button from "@/components/UI/Button";
+import { formatAddress } from "@/utils/string.util";
+import { ModalProvider } from "@/components/providers/ModalProvider";
+import { toast } from "react-toastify";
 
 const ProfileLayout: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const { activeAccount, isReady, isActive, connectedAccounts, activeAddress } =
@@ -36,6 +40,13 @@ const ProfileLayout: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
 
   const hideSidebar = () => {
     setIsSidebarShow(false);
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(
+      `${window.location.protocol}//${window.location.host}/@${activeAddress}`
+    );
+    toast.success("Link copied");
   };
 
   if (error) {
@@ -97,14 +108,25 @@ const ProfileLayout: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
           </div>
         )}
         <div className="px-7 md:px-10 lg:px-[50px] py-[30px] h-[calc(100vh-86px)] lg:h-[calc(100vh-102px)] overflow-scroll">
-          <div className="bg-indigo-100 py-6 px-4 rounded-lg flex items-center gap-3">
-            <InformationCircleIcon width={20} height={20} />
-            <span className="font-bold">Your AlgoPass is live:</span>
-            <a
-              href={`${window.location.protocol}//${window.location.host}/@${activeAddress}`}
-              target="_blank"
-              className="underline"
-            >{`${window.location.protocol}//${window.location.host}/@${activeAddress}`}</a>
+          <div className="bg-indigo-100 p-4 rounded-lg flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <InformationCircleIcon width={20} height={20} />
+              <span className="font-bold">Your AlgoPass is live:</span>
+              {activeAddress ? (
+                <a
+                  href={`${window.location.protocol}//${window.location.host}/@${activeAddress}`}
+                  target="_blank"
+                  className="underline"
+                >{`${window.location.protocol}//${
+                  window.location.host
+                }/@${formatAddress(activeAddress)}`}</a>
+              ) : null}
+            </div>
+            <div>
+              <Button variant="danger" onClick={handleCopy}>
+                Copy
+              </Button>
+            </div>
           </div>
           {children}
         </div>
@@ -117,9 +139,11 @@ const ProfileLayoutWithProvider: React.FC<React.PropsWithChildren<{}>> = ({
   children,
 }) => {
   return (
-    <ProfileProviders>
-      <ProfileLayout>{children}</ProfileLayout>
-    </ProfileProviders>
+    <ModalProvider>
+      <ProfileProviders>
+        <ProfileLayout>{children}</ProfileLayout>
+      </ProfileProviders>
+    </ModalProvider>
   );
 };
 

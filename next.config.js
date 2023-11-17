@@ -14,6 +14,14 @@ const nextConfig = {
         protocol: "https",
         hostname: "algopass.vercel.app",
       },
+      {
+        protocol: "https",
+        hostname: 'ybzythkbaaeqjqqeswln.supabase.co'
+      },
+      {
+        protocol: 'https',
+        hostname: 'demos.creative-tim.com'
+      }
     ],
   },
 };

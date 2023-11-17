@@ -10,3 +10,8 @@ export const decodeProfile = (data: Uint8Array) => {
   const decoded = profileCodec.decode(data) as unknown as any;
   return UserRecord(decoded);
 };
+
+
+export const getContractABI = () => {
+  return new algosdk.ABIContract(contract);
+}

@@ -9,7 +9,11 @@ import { UserRecord } from "@/contract/AlgopassClient";
 export const queryClient = new QueryClient();
 
 type TProfileContext = {
-  user?: UserRecord | null;
+  user?:
+    | (UserRecord & {
+        wallet?: string;
+      })
+    | null;
   isLoading: boolean;
   refetch: () => void;
   error: Error | null;
